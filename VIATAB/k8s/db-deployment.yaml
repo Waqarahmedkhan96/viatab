@@ -19,8 +19,8 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: viatab-db
+              value: viatab
             - name: POSTGRES_USER
-              value: viatab-user
+              value: viatab_user
             - name: POSTGRES_PASSWORD
               value: admin

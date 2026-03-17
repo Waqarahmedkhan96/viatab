@@ -20,9 +20,9 @@ spec:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://viatab-db:5432/viatab-db
+              value: jdbc:postgresql://viatab-db:5432/viatab
             - name: SPRING_DATASOURCE_USERNAME
-              value: viatab-user
+              value: viatab_user
             - name: SPRING_DATASOURCE_PASSWORD
               value: admin
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
