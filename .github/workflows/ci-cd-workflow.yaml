@@ -1,4 +1,3 @@
-
 name: VIATAB CI/CD Pipeline
 
 on:
@@ -53,11 +52,10 @@ jobs:
       - name: Build frontend Docker image
         run: docker build -t viatab-frontend:latest ./VIATAB/frontend/viatab-frontend
 
-   cd:
+  cd:
     name: Deploy to Minikube
     runs-on: ubuntu-latest
     needs: ci
-
     if: github.event_name == 'push'
 
     steps:
@@ -81,3 +79,15 @@ jobs:
         run: |
           eval $(minikube docker-env)
           docker build -t viatab-backend:latest ./VIATAB/backend/viatab-backend
+
+      - name: Build frontend image inside Minikube
+        run: |
+          eval $(minikube docker-env)
+          docker build -t viatab-frontend:latest ./VIATAB/frontend/viatab-frontend
+
+      - name: Deploy Kubernetes resources
+        run: |
+          kubectl apply -f VIATAB/k8s/
+          kubectl get pods
+          kubectl rollout status deployment/viatab-backend --timeout=180s
+          kubectl rollout status deployment/viatab-frontend --timeout=180s
